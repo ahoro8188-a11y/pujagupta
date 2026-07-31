@@ -127,6 +127,7 @@ ul{ margin:0; padding:0; list-style:none; }
   position: relative;
   overflow: hidden;
   padding: 3rem 1.5rem 0;
+  background: linear-gradient(155deg, var(--cream-2) 0%, var(--tacao) 140%);
 }
 .hero-blob{
   position: absolute;
@@ -208,6 +209,7 @@ ul{ margin:0; padding:0; list-style:none; }
   overflow: hidden;
   padding: 5rem 1.5rem 4rem;
   text-align: center;
+  background: linear-gradient(155deg, var(--cream-2) 0%, var(--tacao) 140%);
 }
 .page-banner .hero-blob{ opacity: .4; }
 .page-banner-inner{ position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
@@ -321,6 +323,15 @@ ul{ margin:0; padding:0; list-style:none; }
 .work-card:hover{ transform: translateY(-4px); box-shadow: 0 16px 34px rgba(58,38,32,.1); }
 .work-card h3{ font-size: 1.25rem; margin-bottom: .4rem; }
 .work-card p{ font-size: .92rem; opacity: .8; max-width: 52ch; margin: 0; }
+
+/* ===========================================
+   SECTION BANDS — alternating backgrounds for rhythm
+   =========================================== */
+.band{ width: 100%; position: relative; }
+.band-cream2{ background: var(--cream-2); }
+.band-tacao{ background: linear-gradient(160deg, var(--tacao) 0%, var(--brandy) 100%); }
+.band-tacao .eyebrow, .band-tacao h2{ color: var(--ink); }
+.band-tacao .section-lead, .band-tacao p{ color: var(--ink); }
 
 /* ===========================================
    TESTIMONIALS (dark pill cards)
