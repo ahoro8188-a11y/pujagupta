@@ -2,13 +2,13 @@
    TOKENS
    =========================================== */
 :root{
-  --cream: #FBF3EC;
-  --cream-2: #F4E6D8;
-  --tuscany: #C24B27;
-  --brandy: #DD8632;
-  --tacao: #E9AC78;
-  --copper: #9D4946;
-  --pharlap: #AB8689;
+  --cream: #FBF3E4;
+  --cream-2: #E8DCC8;
+  --tuscany: #A8543A;
+  --brandy: #C9975A;
+  --tacao: #F0B183;
+  --copper: #B8783E;
+  --pharlap: #E8836F;
   --ink: #3A2620;
 
   --font-display: "Spectral", serif;
@@ -113,8 +113,9 @@ ul{ margin:0; padding:0; list-style:none; }
 .torn-divider{
   display:block;
   width: 100%;
-  height: 60px;
+  height: 40px;
   margin-top: -1px;
+  filter: drop-shadow(0 -3px 4px rgba(58,38,32,.08));
 }
 .torn-divider path{ fill: var(--cream); }
 .torn-divider.to-cream-2 path{ fill: var(--cream-2); }
@@ -332,6 +333,53 @@ ul{ margin:0; padding:0; list-style:none; }
 .band-tacao{ background: linear-gradient(160deg, var(--tacao) 0%, var(--brandy) 100%); }
 .band-tacao .eyebrow, .band-tacao h2{ color: var(--ink); }
 .band-tacao .section-lead, .band-tacao p{ color: var(--ink); }
+
+/* ===========================================
+   STRIPE ACCENT PANEL
+   =========================================== */
+.stripe-panel{
+  position: absolute;
+  border-radius: 12px;
+  background: repeating-linear-gradient(
+    135deg,
+    var(--tacao),
+    var(--tacao) 14px,
+    var(--cream-2) 14px,
+    var(--cream-2) 28px
+  );
+  z-index: 0;
+}
+
+/* ===========================================
+   SCROLLING TAG MARQUEE
+   =========================================== */
+.tag-marquee{
+  background: var(--ink);
+  overflow: hidden;
+  padding: .9rem 0;
+  white-space: nowrap;
+}
+.tag-marquee-track{
+  display: inline-flex;
+  gap: 1.2rem;
+  animation: tagMarqueeScroll 20s linear infinite;
+}
+.tag-marquee-track span{
+  font-size: .82rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--cream);
+}
+.tag-marquee-track .star{ color: var(--brandy); }
+@keyframes tagMarqueeScroll{
+  from{ transform: translateX(0); }
+  to{ transform: translateX(-50%); }
+}
+.tag-marquee:hover .tag-marquee-track{ animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce){
+  .tag-marquee-track{ animation: none !important; }
+}
 
 /* ===========================================
    TESTIMONIALS (dark pill cards)
