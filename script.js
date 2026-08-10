@@ -1,76 +1,64 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Services — Puja Gupta</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
+// Mobile nav toggle
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+navToggle.addEventListener('click', () => {
+  const isOpen = navLinks.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', isOpen);
+});
+navLinks.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', false);
+  });
+});
 
-<header class="site-nav">
-  <div class="nav-inner">
-    <a href="index.html" class="nav-logo">Puja Gupta</a>
-    <nav class="nav-links" id="navLinks">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="publishedwork.html">Published Work</a>
-      <a href="services.html" class="is-current">Services</a>
-      <a href="testimonials.html">Testimonials</a>
-      <a href="blog.html">Blog</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</header>
+// Minimal scroll-reveal
+const revealTargets = document.querySelectorAll(
+  '.section, .about-grid, .work-list, .testimonial-list, .contact-page, .blog-placeholder, .book-row-list, .blog-list'
+);
+revealTargets.forEach(el => el.classList.add('reveal'));
 
-<section class="page-banner">
-  <div class="page-banner-inner">
-    <p class="eyebrow eyebrow-center">Services</p>
-    <h1>How I can help</h1>
-    <p>Three core areas, refined over seven years of editorial work.</p>
-  </div>
-</section>
+// Stagger containers: children fade in one after another
+const staggerContainers = document.querySelectorAll(
+  '.numbered-grid, .edu-skills, .book-grid, .chip-row'
+);
+staggerContainers.forEach(container => {
+  container.classList.add('stagger');
+  [...container.children].forEach((child, i) => {
+    child.style.setProperty('--i', i);
+  });
+});
 
-<section class="numbered-grid">
-    <div class="numbered-card">
-      <div class="numbered-icon">✎</div>
-      <h3>Manuscript Editing</h3>
-      <p>Developmental, copy, and line editing — shaping structure, sharpening prose, and preserving your voice throughout.</p>
-    </div>
-    <div class="numbered-card">
-      <div class="numbered-icon">🔍</div>
-      <h3>Proofreading</h3>
-      <p>A meticulous final pass to catch typos, punctuation, and formatting issues before your manuscript goes to print.</p>
-    </div>
-    <div class="numbered-card">
-      <div class="numbered-icon">💬</div>
-      <h3>Author Consultancy</h3>
-      <p>Guidance through the publishing process, cover suggestions, formatting ideas, and launch strategy — from manuscript to market.</p>
-    </div>
-  </section>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('is-visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
 
-<section class="section section-center">
-  <p class="eyebrow eyebrow-center">Ready to begin?</p>
-  <h2>Let's shape your story together</h2>
-  <a href="contact.html" class="btn btn-primary" style="margin-top: 1rem;">Get in touch</a>
-</section>
-<footer class="site-footer">
-  <div class="footer-inner">
-    <p>© 2026 Puja Gupta</p>
-    <div class="footer-links">
-      <a href="testimonials.html">Testimonials</a>
-      <a href="contact.html">Contact</a>
-    </div>
-  </div>
-</footer>
+revealTargets.forEach(el => observer.observe(el));
+staggerContainers.forEach(el => observer.observe(el));
 
-<button id="backToTop" class="back-to-top" aria-label="Back to top">↑</button>
-<script src="script.js"></script>
-</body>
-</html>
+// Back to top button
+const backToTop = document.getElementById('backToTop');
+if (backToTop) {
+  window.addEventListener('scroll', () => {
+    backToTop.classList.toggle('show', window.scrollY > 500);
+  }, { passive: true });
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
+
+// Contact form
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+  const note = document.getElementById('formNote');
+  contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    note.textContent = "Thank you — I'll get back to you soon.";
+    contactForm.reset();
+  });
+}
