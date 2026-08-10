@@ -2,18 +2,18 @@
    TOKENS
    =========================================== */
 :root{
-  --cream: #FBF3E4;
-  --cream-2: #F0DDBE;
-  --tuscany: #C2410C;
-  --brandy: #D97706;
-  --tacao: #F5A962;
-  --copper: #92400E;
-  --pharlap: #B45309;
-  --gold: #C9962C;
-  --ink: #2E1D12;
+  --cream: #FAF6F0;
+  --cream-2: #F5EDE4;
+  --tuscany: #C1694F;
+  --brandy: #B8860B;
+  --tacao: #D9A788;
+  --copper: #5C3D2E;
+  --pharlap: #C99A6C;
+  --gold: #B8860B;
+  --ink: #2D1F16;
 
-  --font-display: "Spectral", serif;
-  --font-body: "Inter", sans-serif;
+  --font-display: "Playfair Display", serif;
+  --font-body: "DM Sans", sans-serif;
   --font-script: "Dancing Script", cursive;
   --container: 1180px;
 }
@@ -314,6 +314,8 @@ ul{ margin:0; padding:0; list-style:none; }
   gap: 2rem;
 }
 .numbered-card{
+  position: relative;
+  overflow: hidden;
   text-align: center;
   background: #fff;
   border-radius: var(--card-radius);
@@ -321,6 +323,17 @@ ul{ margin:0; padding:0; list-style:none; }
   padding: 2.5rem 2rem;
   transition: transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s cubic-bezier(.22,1,.36,1);
 }
+.numbered-card::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(193,105,79,.1), transparent 60%);
+  opacity: 0;
+  transition: opacity .3s ease;
+  pointer-events: none;
+}
+.numbered-card:hover::before{ opacity: 1; }
 .numbered-card:hover{ transform: translateY(-4px); box-shadow: var(--card-shadow-hover); }
 .numbered-icon{
   width: 72px; height: 72px;
@@ -377,8 +390,50 @@ ul{ margin:0; padding:0; list-style:none; }
 }
 .card:hover{ transform: translateY(-4px); box-shadow: var(--card-shadow-hover); }
 
+/* ===========================================
+   DOT PATTERN BACKGROUND (from Canva template)
+   =========================================== */
+.dot-pattern{
+  background-image: radial-gradient(circle, rgba(92,61,46,.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* ===========================================
+   BACK TO TOP BUTTON
+   =========================================== */
+.back-to-top{
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--tuscany);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  box-shadow: 0 10px 24px rgba(45,31,22,.25);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: opacity .3s cubic-bezier(.22,1,.36,1), transform .3s cubic-bezier(.22,1,.36,1), background .25s ease;
+  z-index: 200;
+}
+.back-to-top.show{
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.back-to-top:hover{ background: var(--copper); transform: translateY(-3px); }
+
 .quote-card{
-  background: #fff;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #F5EDE4 0%, #EFE3D6 100%);
   border-radius: var(--card-radius);
   box-shadow: var(--card-shadow);
   padding: 3rem 2.5rem;
@@ -386,6 +441,14 @@ ul{ margin:0; padding:0; list-style:none; }
   margin: 0 auto;
   text-align: center;
 }
+.quote-card::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%235c3d2e' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  border-radius: inherit;
+}
+.quote-card > *{ position: relative; z-index: 1; }
 
 /* ===========================================
    STRIPE ACCENT PANEL
@@ -749,4 +812,99 @@ a.contact-row:hover{ transform: translateX(4px); }
   position: relative;
   background: #fff;
   border-radius: 10px;
-  padding: 2rem 1.5
+  padding: 2rem 1.5rem 1.5rem;
+  box-shadow: 0 16px 34px rgba(58,38,32,.1);
+}
+.contact-form input, .contact-form textarea{
+  background: #fff;
+  border: 1.5px solid rgba(58,38,32,.12);
+  border-radius: 10px;
+  padding: .85rem 1.1rem;
+  font-family: inherit;
+  font-size: .95rem;
+  color: var(--ink);
+  resize: vertical;
+}
+.contact-form input:focus, .contact-form textarea:focus{ border-color: var(--tuscany); outline:none; }
+.contact-form button{ align-self: flex-start; border:none; cursor:pointer; }
+.form-note{ font-size: .85rem; color: var(--tuscany); min-height: 1.2em; }
+
+/* ===========================================
+   FOOTER
+   =========================================== */
+.site-footer{
+  background: var(--ink);
+  color: var(--cream);
+  padding: 3rem 1.5rem 2rem;
+}
+.footer-inner{
+  max-width: var(--container);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: .85rem;
+  opacity: .85;
+}
+.footer-links{ display:flex; gap: 1.5rem; }
+.footer-links a:hover{ color: var(--tacao); }
+
+/* ===========================================
+   SCROLL REVEAL — minimal, classy
+   =========================================== */
+.reveal{
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .9s cubic-bezier(.22,1,.36,1), transform .9s cubic-bezier(.22,1,.36,1);
+}
+.reveal.is-visible{ opacity: 1; transform: translateY(0); }
+
+/* Stagger: direct children fade in one after another */
+.stagger > *{
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1);
+  transition-delay: calc(var(--i, 0) * 90ms);
+}
+.stagger.is-visible > *{ opacity: 1; transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce){
+  .stagger > *{ opacity: 1 !important; transform: none !important; transition-delay: 0s !important; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .reveal{ opacity: 1 !important; transform: none !important; }
+}
+
+/* ===========================================
+   RESPONSIVE
+   =========================================== */
+@media (max-width: 900px){
+  .hero-inner{ grid-template-columns: 1fr; text-align: center; }
+  .hero-badge{ margin: 1.5rem auto 0; }
+  .hero-photo{ max-width: 340px; margin: 2rem auto 0; }
+  .about-grid{ grid-template-columns: 1fr; text-align: center; }
+  .about-photo{ max-width: 300px; margin: 0 auto; }
+  .about-copy p{ margin-inline: auto; }
+  .edu-skills{ grid-template-columns: 1fr; }
+  .numbered-grid{ grid-template-columns: 1fr; }
+  .work-card{ flex-direction: column; align-items: flex-start; }
+  .testimonial-card{ grid-template-columns: 1fr; text-align: left; }
+  .testimonial-cover{ width: 80px; }
+  .contact-page{ grid-template-columns: 1fr; }
+  .book-grid{ grid-template-columns: repeat(2, 1fr); }
+  .book-row-card{ flex-direction: column; text-align: center; }
+  .testimonial-card-v2{ grid-template-columns: 1fr; }
+  .testimonial-card-v2 .testimonial-cover{ order: 0; width: 70px; margin-bottom: .5rem; }
+}
+@media (max-width: 640px){
+  .nav-links{
+    position: fixed; inset: 0 0 0 auto; height: 100vh; width: min(78vw, 300px);
+    background: var(--cream); flex-direction: column; align-items:flex-start; justify-content:center;
+    padding: 2rem; gap: 1.6rem; transform: translateX(100%); transition: transform .3s ease;
+    box-shadow: -10px 0 30px rgba(58,38,32,.12);
+  }
+  .nav-links.open{ transform: translateX(0); }
+  .nav-toggle{ display:flex; }
+}
